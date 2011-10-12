@@ -1,0 +1,47 @@
+/* ============================== */
+/* ! Layout for desktop version   */
+/* ============================== */
+
+body {
+	font-size: 100%;
+	font-family: calibri,tahoma,arial,sans-serif;
+	margin: 0px 0px 20px 0px;
+	background: #fff;
+}
+#container {
+	float: right;
+	position: relative;
+}
+#primary,
+#secondary {
+	float: left;
+	position: relative;
+}
+
+	
+
+/* ============================= */
+/* ! Layout for mobile version   */
+/* ============================= */
+
+@media handheld, only screen and (max-width: 767px) {
+
+	body {
+		
+	}
+
+}
+
+
+/* ========================================== */
+/* ! Provide higher res assets for iPhone 4   */
+/* ========================================== */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+
+/*	.logo {
+		background: url(logo2x.jpg) no-repeat;
+		background-size: 212px 303px;
+	}*/
+
+}
