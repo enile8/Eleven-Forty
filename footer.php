@@ -12,7 +12,7 @@
 ?>
 	</div><!-- #main -->
 
-	<div id="footer" class="row" role="contentinfo">
+	<footer class="row" role="contentinfo">
 		<div id="colophon">
 
 <?php
@@ -29,12 +29,11 @@
 			</div><!-- #site-info -->
 
 			<div id="site-generator" class="sixcol last">
-				<?php do_action( 'elevenforty_credits' ); ?>
-				<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'elevenforty' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'elevenforty' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s.', 'elevenforty' ), 'WordPress' ); ?></a>
+				<a href="http://enile8.github.com/elevenforty" title="1140 CSS Framework Theme for WordPress" rel="generator">Eleven Forty WordPress Theme</a>
 			</div><!-- #site-generator -->
 
 		</div><!-- #colophon -->
-	</div><!-- #footer -->
+	</footer><!-- #footer -->
 
 </div><!-- #wrapper -->
 
