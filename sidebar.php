@@ -8,7 +8,7 @@
  */
 ?>
 
-		<div id="primary" class="widget-area fourcol last" role="complementary">
+		<div id="primary" class="widget-area <?php echo get_option('of_primary_sidebar_class'); ?>" role="complementary">
 			<ul class="xoxo">
 
 <?php
@@ -47,7 +47,7 @@
 	// A second sidebar for widgets, just because.
 	if ( is_active_sidebar( 'secondary-widget-area' ) ) : ?>
 
-		<div id="secondary" class="widget-area fourcol last" role="complementary">
+		<div id="secondary" class="widget-area <?php echo get_option('of_secondary_sidebar_class'); ?>" role="complementary">
 			<ul class="xoxo">
 				<?php dynamic_sidebar( 'secondary-widget-area' ); ?>
 			</ul>

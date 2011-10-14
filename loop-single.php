@@ -17,17 +17,19 @@
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 
-				<div id="nav-above" class="navigation">
+				<nav id="nav-above" class="navigation">
 					<div class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'elevenforty' ) . '</span> %title' ); ?></div>
 					<div class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'elevenforty' ) . '</span>' ); ?></div>
-				</div><!-- #nav-above -->
+				</nav><!-- #nav-above -->
 
-				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<h1 class="entry-title"><?php the_title(); ?></h1>
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<header>
+						<h1 class="entry-title"><?php the_title(); ?></h1>
 
-					<div class="entry-meta">
-						<?php elevenforty_posted_on(); ?>
-					</div><!-- .entry-meta -->
+						<p class="entry-meta">
+							<?php elevenforty_posted_on(); ?>
+						</p><!-- .entry-meta -->
+					</header>
 
 					<div class="entry-content">
 						<?php the_content(); ?>
@@ -35,7 +37,7 @@
 					</div><!-- .entry-content -->
 
 <?php if ( get_the_author_meta( 'description' ) ) : // If a user has filled out their description, show a bio on their entries  ?>
-					<div id="entry-author-info">
+					<footer id="entry-author-info">
 						<div id="author-avatar">
 							<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'elevenforty_author_bio_avatar_size', 60 ) ); ?>
 						</div><!-- #author-avatar -->
@@ -43,24 +45,24 @@
 							<h2><?php printf( esc_attr__( 'About %s', 'elevenforty' ), get_the_author() ); ?></h2>
 							<?php the_author_meta( 'description' ); ?>
 							<div id="author-link">
-								<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>" rel="author">
+								<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
 									<?php printf( __( 'View all posts by %s <span class="meta-nav">&rarr;</span>', 'elevenforty' ), get_the_author() ); ?>
 								</a>
 							</div><!-- #author-link	-->
 						</div><!-- #author-description -->
-					</div><!-- #entry-author-info -->
+					</footer><!-- #entry-author-info -->
 <?php endif; ?>
 
-					<div class="entry-utility">
+					<footer class="entry-utility">
 						<?php elevenforty_posted_in(); ?>
 						<?php edit_post_link( __( 'Edit', 'elevenforty' ), '<span class="edit-link">', '</span>' ); ?>
-					</div><!-- .entry-utility -->
-				</div><!-- #post-## -->
+					</footer><!-- .entry-utility -->
+				</article><!-- #post-## -->
 
-				<div id="nav-below" class="navigation">
+				<nav id="nav-below" class="navigation">
 					<div class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'elevenforty' ) . '</span> %title' ); ?></div>
 					<div class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'elevenforty' ) . '</span>' ); ?></div>
-				</div><!-- #nav-below -->
+				</nav><!-- #nav-below -->
 
 				<?php comments_template( '', true ); ?>
 

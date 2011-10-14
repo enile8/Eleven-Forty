@@ -38,6 +38,26 @@
  * @since Twenty Ten 1.0
  */
 
+/* Set the file path based on whether the Options Framework is in a parent theme or child theme */
+
+if ( STYLESHEETPATH == TEMPLATEPATH ) {
+	define('OF_FILEPATH', TEMPLATEPATH);
+	define('OF_DIRECTORY', get_template_directory_uri());
+} else {
+	define('OF_FILEPATH', STYLESHEETPATH);
+	define('OF_DIRECTORY', get_stylesheet_directory_uri());
+}
+
+/* These files build out the options interface.  Likely won't need to edit these. */
+
+require_once (OF_FILEPATH . '/admin/admin-functions.php');		// Custom functions and plugins
+require_once (OF_FILEPATH . '/admin/admin-interface.php');		// Admin Interfaces (options,framework, seo)
+
+/* These files build out the theme specific options and associated functions. */
+
+require_once (OF_FILEPATH . '/admin/theme-options.php'); 		// Options panel settings and custom settings
+require_once (OF_FILEPATH . '/admin/theme-functions.php'); 	// Theme actions based on options settings
+
 /**
  * Set the content width based on the theme's design and stylesheet.
  *
@@ -371,29 +391,72 @@ endif;
  * @uses register_sidebar
  */
 function elevenforty_widgets_init() {
-	// Area 1, located at the top of the sidebar.
+	// Area 1, this will function as the main sidebar.
+	register_sidebar( array (
+		'name' => __( 'Sidebar 1', 'elevenforty' ),
+		'id' => 'sidebar-1',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => "</aside>",
+		'before_title' => '<h1 class="widget-title">',
+		'after_title' => '</h1>',
+	) );
+
+	// Area 2, this will function as the secondary sidebar.
+	register_sidebar( array (
+		'name' => __( 'Sidebar 2', 'elevenforty' ),
+		'id' => 'sidebar-2',
+		'description' => __( 'An optional second sidebar area', 'elevenforty' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => "</aside>",
+		'before_title' => '<h1 class="widget-title">',
+		'after_title' => '</h1>',
+	) );
+	
+	// Area 3, located just below the header. Empty by default.
 	register_sidebar( array(
-		'name' => __( 'Primary Widget Area', 'elevenforty' ),
-		'id' => 'primary-widget-area',
-		'description' => __( 'The primary widget area', 'elevenforty' ),
+		'name' => __( 'First above Content Widget Area', 'elevenforty' ),
+		'id' => 'first-abovecontent-widget-area',
+		'description' => __( 'The first above Content widget area', 'elevenforty' ),
 		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
 		'after_widget' => '</li>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );
 
-	// Area 2, located below the Primary Widget Area in the sidebar. Empty by default.
+	// Area 4, located just below the header. Empty by default.
 	register_sidebar( array(
-		'name' => __( 'Secondary Widget Area', 'elevenforty' ),
-		'id' => 'secondary-widget-area',
-		'description' => __( 'The secondary widget area', 'elevenforty' ),
+		'name' => __( 'Second above Content Widget Area', 'elevenforty' ),
+		'id' => 'second-abovecontent-widget-area',
+		'description' => __( 'The second above Content widget area', 'elevenforty' ),
 		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
 		'after_widget' => '</li>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );
 
-	// Area 3, located in the footer. Empty by default.
+	// Area 5, located just below the header. Empty by default.
+	register_sidebar( array(
+		'name' => __( 'Third above Content Widget Area', 'elevenforty' ),
+		'id' => 'third-abovecontent-widget-area',
+		'description' => __( 'The third above Content widget area', 'elevenforty' ),
+		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+		'after_widget' => '</li>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	
+	// Area 6, located just below the header. Empty by default.
+	register_sidebar( array(
+		'name' => __( 'Fourth above Content Widget Area', 'elevenforty' ),
+		'id' => 'fourth-abovecontent-widget-area',
+		'description' => __( 'The fourth above Content widget area', 'elevenforty' ),
+		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+		'after_widget' => '</li>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );	
+	
+	// Area 7, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'First Footer Widget Area', 'elevenforty' ),
 		'id' => 'first-footer-widget-area',
@@ -404,7 +467,7 @@ function elevenforty_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
-	// Area 4, located in the footer. Empty by default.
+	// Area 8, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'Second Footer Widget Area', 'elevenforty' ),
 		'id' => 'second-footer-widget-area',
@@ -415,7 +478,7 @@ function elevenforty_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
-	// Area 5, located in the footer. Empty by default.
+	// Area 9, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'Third Footer Widget Area', 'elevenforty' ),
 		'id' => 'third-footer-widget-area',
@@ -426,7 +489,7 @@ function elevenforty_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
-	// Area 6, located in the footer. Empty by default.
+	// Area 10, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'Fourth Footer Widget Area', 'elevenforty' ),
 		'id' => 'fourth-footer-widget-area',

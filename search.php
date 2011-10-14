@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-		<div id="container" class="eightcol">
+		<div id="container" class="<?php echo get_option('of_main_content_class'); ?>">
 			<div id="content" role="main">
 
 <?php if ( have_posts() ) : ?>
