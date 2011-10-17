@@ -17,7 +17,7 @@
 	 * then the sidebar simply doesn't exist, so we'll hard-code in
 	 * some default sidebar stuff just in case.
 	 */
-	if ( ! dynamic_sidebar( 'primary-widget-area' ) ) : ?>
+	if ( ! dynamic_sidebar( 'sidebar-1' ) ) : ?>
 
 			<li id="search" class="widget-container widget_search">
 				<?php get_search_form(); ?>
@@ -45,11 +45,11 @@
 
 <?php
 	// A second sidebar for widgets, just because.
-	if ( is_active_sidebar( 'secondary-widget-area' ) ) : ?>
+	if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
 
 		<div id="secondary" class="widget-area <?php echo get_option('of_secondary_sidebar_class'); ?>" role="complementary">
 			<ul class="xoxo">
-				<?php dynamic_sidebar( 'secondary-widget-area' ); ?>
+				<?php dynamic_sidebar( 'sidebar-2' ); ?>
 			</ul>
 		</div><!-- #secondary .widget-area -->
 
