@@ -4,9 +4,7 @@
  *
  * Displays all of the <head> section and everything up till <div id="main">
  *
- * @package WordPress
- * @subpackage Twenty_Ten
- * @since Twenty Ten 1.0
+ * @package elevenforty
  */
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -92,16 +90,16 @@
 					<div id="site-description" class="<?php echo get_option('of_site_description_class'); ?>"><?php bloginfo( 'description' ); ?></div>
 					<div id="header-image">
 					<?php
-						// Check if this is a post or page, if it has a thumbnail, and if it's a big one
-						if ( is_singular() &&
-								has_post_thumbnail( $post->ID ) &&
-								( /* $src, $width, $height */ $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'post-thumbnail' ) ) &&
-								$image[1] >= HEADER_IMAGE_WIDTH ) :
-							// Houston, we have a new header image!
-							echo get_the_post_thumbnail( $post->ID, 'post-thumbnail' );
-						else : ?>
-							<img src="<?php header_image(); ?>" width="<?php echo HEADER_IMAGE_WIDTH; ?>" height="<?php echo HEADER_IMAGE_HEIGHT; ?>" alt="" />
-						<?php endif; ?>
+					// Check if this is a post or page, if it has a thumbnail, and if it's a big one
+					if ( is_singular() && current_theme_supports( 'post-thumbnails' ) &&
+							has_post_thumbnail( $post->ID ) &&
+							( /* $src, $width, $height */ $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'post-thumbnail' ) ) &&
+							$image[1] >= HEADER_IMAGE_WIDTH ) :
+						// Houston, we have a new header image!
+						echo get_the_post_thumbnail( $post->ID );
+					elseif ( get_header_image() ) : ?>
+						<img src="<?php header_image(); ?>" alt="" />
+					<?php endif; ?>
 					</div><!-- #header-image -->
 				</div><!-- #branding -->
 	</div><!-- .container -->
@@ -120,6 +118,24 @@
 	</div><!-- .container -->
 	
 		<div id="above-content-widgets" class="row">
-			<?php get_sidebar( 'abovecontent' ); ?>
+			<?php 
+			//get the widget areas above the content if enabled
+			get_sidebar( 'abovecontent' ); ?>
 		</div><!-- #above-content-widgets -->
 	<div id="main" class="row">
+
+		<?php if ( function_exists('yoast_breadcrumb') ) {
+			if( get_option('of_breadcrumb_home') == 'no'){ 
+				if (is_home()) { 
+					//if option is set to disallow display of breadcrumbs on homepage don't display
+				}
+				else {
+					//else if not homepage display
+					yoast_breadcrumb('<div id="breadcrumbs" class="row twelvecol">','</div>');
+				}
+			} 
+			elseif( get_option('of_breadcrumb_home') == 'yes') {
+				//if yoast breadcrumbs enabled display them everywhere!
+				yoast_breadcrumb('<div id="breadcrumbs" class="row twelvecol">','</div>');
+			}
+		} ?>

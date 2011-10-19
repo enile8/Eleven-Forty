@@ -36,6 +36,9 @@ $options_thumb_align = array("alignleft" => "Left","alignright" => "Right","alig
 // Image Links to Options
 $options_image_link_to = array("image" => "The Image","post" => "The Post"); 
 
+//brumdcrumb radio Options
+$options_breadcrumb = array("no" => "No","yes" => "Yes"); 
+
 //Testing 
 $options_select = array("one","two","three","four","five"); 
 $options_radio = array("one" => "One","two" => "Two","three" => "Three","four" => "Four","five" => "Five"); 
@@ -90,6 +93,13 @@ $options[] = array( "name" => "Custom Favicon",
 					"id" => $shortname."_custom_favicon",
 					"std" => "",
 					"type" => "upload"); 
+					
+$options[] = array( "name" => "Breadcrumbs on homepage",
+					"desc" => "Should the breadcrumb appear on the homepage? (Note: Yoast breadcrumbs must be installed and enabled)",
+					"id" => $shortname."_breadcrumb_home",
+					"std" => "no",
+					"type" => "radio",
+					"options" => $options_breadcrumb);
                                                
 $options[] = array( "name" => "Tracking Code",
 					"desc" => "Paste your Google Analytics (or other) tracking code here. This will be added into the footer template of your theme.",

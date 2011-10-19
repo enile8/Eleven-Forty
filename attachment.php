@@ -2,9 +2,7 @@
 /**
  * The template for displaying attachments.
  *
- * @package WordPress
- * @subpackage Twenty_Ten
- * @since Twenty Ten 1.0
+ * @package elevenforty
  */
 
 get_header(); ?>

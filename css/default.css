@@ -1071,7 +1071,10 @@ h3#reply-title {
 }
 .widget-title {
 	color: #222;
+	font-size:13px;
 	font-weight: bold;
+	margin-top:13px;
+	margin-bottom:8px;
 }
 .widget-area a:link,
 .widget-area a:visited {
@@ -1186,27 +1189,12 @@ img#wpstats {
 	margin: 0 auto 10px;
 }
 
-
-/* =Mobile Safari ( iPad, iPhone and iPod Touch )
+/* =Supported plugin styling
 -------------------------------------------------------------- */
 
-pre {
-	-webkit-text-size-adjust: 140%;
+#breadcrumbs {
+	margin-bottom:18px;
 }
-code {
-	-webkit-text-size-adjust: 160%;
-}
-#access,
-.entry-meta,
-.entry-utility,
-.navigation,
-.widget-area {
-	-webkit-text-size-adjust: 120%;
-}
-#site-description {
-	-webkit-text-size-adjust: none;
-}
-
 
 /* =Print Style
 -------------------------------------------------------------- */
