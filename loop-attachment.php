@@ -9,9 +9,7 @@
  *
  * This can be overridden in child themes with loop-attachment.php.
  *
- * @package WordPress
- * @subpackage Twenty_Ten
- * @since Twenty Ten 1.2
+ * @package elevenforty
  */
 ?>
 
@@ -24,9 +22,10 @@
 					?></a></p>
 				<?php endif; ?>
 
-				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<h2 class="entry-title"><?php the_title(); ?></h2>
-
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<header>
+						<h2 class="entry-title"><?php the_title(); ?></h2>
+					</header>
 					<div class="entry-meta">
 						<?php
 							printf( __( '<span class="%1$s">By</span> %2$s', 'elevenforty' ),
@@ -110,7 +109,7 @@
 						<?php elevenforty_posted_in(); ?>
 						<?php edit_post_link( __( 'Edit', 'elevenforty' ), ' <span class="edit-link">', '</span>' ); ?>
 					</div><!-- .entry-utility -->
-				</div><!-- #post-## -->
+				</article><!-- #post-## -->
 
 <?php comments_template(); ?>
 

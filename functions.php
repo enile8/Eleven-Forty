@@ -1,6 +1,6 @@
 <?php
 /**
- * TwentyTen functions and definitions
+ * functions and definitions
  *
  * Sets up the theme and provides some helper functions. Some helper functions
  * are used in the theme as custom template tags. Others are attached to action and
@@ -33,10 +33,28 @@
  *
  * For more information on hooks, actions, and filters, see http://codex.wordpress.org/Plugin_API.
  *
- * @package WordPress
- * @subpackage Twenty_Ten
- * @since Twenty Ten 1.0
+ * @package elevenforty
  */
+
+/* Set the file path based on whether the Options Framework is in a parent theme or child theme */
+
+if ( STYLESHEETPATH == TEMPLATEPATH ) {
+	define('OF_FILEPATH', TEMPLATEPATH);
+	define('OF_DIRECTORY', get_template_directory_uri());
+} else {
+	define('OF_FILEPATH', STYLESHEETPATH);
+	define('OF_DIRECTORY', get_stylesheet_directory_uri());
+}
+
+/* These files build out the options interface.  Likely won't need to edit these. */
+
+require_once (OF_FILEPATH . '/admin/admin-functions.php');		// Custom functions and plugins
+require_once (OF_FILEPATH . '/admin/admin-interface.php');		// Admin Interfaces (options,framework, seo)
+
+/* These files build out the theme specific options and associated functions. */
+
+require_once (OF_FILEPATH . '/admin/theme-options.php'); 		// Options panel settings and custom settings
+require_once (OF_FILEPATH . '/admin/theme-functions.php'); 	// Theme actions based on options settings
 
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -70,7 +88,6 @@ if ( ! function_exists( 'elevenforty_setup' ) ):
  * @uses register_default_headers() To register the default custom header images provided with the theme.
  * @uses set_post_thumbnail_size() To set a custom post thumbnail size.
  *
- * @since Twenty Ten 1.0
  */
 function elevenforty_setup() {
 
@@ -114,10 +131,10 @@ function elevenforty_setup() {
 	// The height and width of your custom header. You can hook into the theme's own filters to change these values.
 	// Add a filter to elevenforty_header_image_width and elevenforty_header_image_height to change these values.
 	define( 'HEADER_IMAGE_WIDTH', apply_filters( 'elevenforty_header_image_width', 1140 ) );
-	define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'elevenforty_header_image_height', 198 ) );
+	define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'elevenforty_header_image_height', 240 ) );
 
 	// We'll be using post thumbnails for custom header images on posts and pages.
-	// We want them to be 940 pixels wide by 198 pixels tall.
+	// We want them to be 1140 pixels wide by 240 pixels tall.
 	// Larger images will be auto-cropped to fit, smaller ones will be ignored. See header.php.
 	set_post_thumbnail_size( HEADER_IMAGE_WIDTH, HEADER_IMAGE_HEIGHT, true );
 
@@ -191,7 +208,6 @@ if ( ! function_exists( 'elevenforty_admin_header_style' ) ) :
  *
  * Referenced via add_custom_image_header() in elevenforty_setup().
  *
- * @since Twenty Ten 1.0
  */
 function elevenforty_admin_header_style() {
 ?>
@@ -216,7 +232,6 @@ endif;
  * To override this in a child theme, remove the filter and optionally add
  * your own function tied to the wp_page_menu_args filter hook.
  *
- * @since Twenty Ten 1.0
  */
 function elevenforty_page_menu_args( $args ) {
 	$args['show_home'] = true;
@@ -230,8 +245,6 @@ add_filter( 'wp_page_menu_args', 'elevenforty_page_menu_args' );
  * To override this length in a child theme, remove the filter and add your own
  * function tied to the excerpt_length filter hook.
  *
- * @since Twenty Ten 1.0
- * @return int
  */
 function elevenforty_excerpt_length( $length ) {
 	return 40;
@@ -241,8 +254,6 @@ add_filter( 'excerpt_length', 'elevenforty_excerpt_length' );
 /**
  * Returns a "Continue Reading" link for excerpts
  *
- * @since Twenty Ten 1.0
- * @return string "Continue Reading" link
  */
 function elevenforty_continue_reading_link() {
 	return ' <a href="'. get_permalink() . '">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'elevenforty' ) . '</a>';
@@ -254,8 +265,6 @@ function elevenforty_continue_reading_link() {
  * To override this in a child theme, remove the filter and add your own
  * function tied to the excerpt_more filter hook.
  *
- * @since Twenty Ten 1.0
- * @return string An ellipsis
  */
 function elevenforty_auto_excerpt_more( $more ) {
 	return ' &hellip;' . elevenforty_continue_reading_link();
@@ -268,8 +277,6 @@ add_filter( 'excerpt_more', 'elevenforty_auto_excerpt_more' );
  * To override this link in a child theme, remove the filter and add your own
  * function tied to the get_the_excerpt filter hook.
  *
- * @since Twenty Ten 1.0
- * @return string Excerpt with a pretty "Continue Reading" link
  */
 function elevenforty_custom_excerpt_more( $output ) {
 	if ( has_excerpt() && ! is_attachment() ) {
@@ -285,7 +292,6 @@ add_filter( 'get_the_excerpt', 'elevenforty_custom_excerpt_more' );
  * Galleries are styled by the theme in Twenty Ten's style.css. This is just
  * a simple filter call that tells WordPress to not use the default styles.
  *
- * @since Twenty Ten 1.2
  */
 add_filter( 'use_default_gallery_style', '__return_false' );
 
@@ -295,8 +301,6 @@ add_filter( 'use_default_gallery_style', '__return_false' );
  * This function is no longer needed or used. Use the use_default_gallery_style
  * filter instead, as seen above.
  *
- * @since Twenty Ten 1.0
- * @deprecated Deprecated in Twenty Ten 1.2 for WordPress 3.1
  *
  * @return string The gallery style filter, with the styles themselves removed.
  */
@@ -316,7 +320,6 @@ if ( ! function_exists( 'elevenforty_comment' ) ) :
  *
  * Used as a callback by wp_list_comments() for displaying the comments.
  *
- * @since Twenty Ten 1.0
  */
 function elevenforty_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
@@ -367,33 +370,74 @@ endif;
  * To override elevenforty_widgets_init() in a child theme, remove the action hook and add your own
  * function tied to the init hook.
  *
- * @since Twenty Ten 1.0
- * @uses register_sidebar
  */
 function elevenforty_widgets_init() {
-	// Area 1, located at the top of the sidebar.
+	// Area 1, this will function as the main sidebar.
+	register_sidebar( array (
+		'name' => __( 'Sidebar 1', 'elevenforty' ),
+		'id' => 'sidebar-1',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => "</aside>",
+		'before_title' => '<h1 class="widget-title">',
+		'after_title' => '</h1>',
+	) );
+
+	// Area 2, this will function as the secondary sidebar.
+	register_sidebar( array (
+		'name' => __( 'Sidebar 2', 'elevenforty' ),
+		'id' => 'sidebar-2',
+		'description' => __( 'An optional second sidebar area', 'elevenforty' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => "</aside>",
+		'before_title' => '<h1 class="widget-title">',
+		'after_title' => '</h1>',
+	) );
+	
+	// Area 3, located just below the header. Empty by default.
 	register_sidebar( array(
-		'name' => __( 'Primary Widget Area', 'elevenforty' ),
-		'id' => 'primary-widget-area',
-		'description' => __( 'The primary widget area', 'elevenforty' ),
+		'name' => __( 'First above Content Widget Area', 'elevenforty' ),
+		'id' => 'first-abovecontent-widget-area',
+		'description' => __( 'The first above Content widget area', 'elevenforty' ),
 		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
 		'after_widget' => '</li>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );
 
-	// Area 2, located below the Primary Widget Area in the sidebar. Empty by default.
+	// Area 4, located just below the header. Empty by default.
 	register_sidebar( array(
-		'name' => __( 'Secondary Widget Area', 'elevenforty' ),
-		'id' => 'secondary-widget-area',
-		'description' => __( 'The secondary widget area', 'elevenforty' ),
+		'name' => __( 'Second above Content Widget Area', 'elevenforty' ),
+		'id' => 'second-abovecontent-widget-area',
+		'description' => __( 'The second above Content widget area', 'elevenforty' ),
 		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
 		'after_widget' => '</li>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );
 
-	// Area 3, located in the footer. Empty by default.
+	// Area 5, located just below the header. Empty by default.
+	register_sidebar( array(
+		'name' => __( 'Third above Content Widget Area', 'elevenforty' ),
+		'id' => 'third-abovecontent-widget-area',
+		'description' => __( 'The third above Content widget area', 'elevenforty' ),
+		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+		'after_widget' => '</li>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	
+	// Area 6, located just below the header. Empty by default.
+	register_sidebar( array(
+		'name' => __( 'Fourth above Content Widget Area', 'elevenforty' ),
+		'id' => 'fourth-abovecontent-widget-area',
+		'description' => __( 'The fourth above Content widget area', 'elevenforty' ),
+		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+		'after_widget' => '</li>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );	
+	
+	// Area 7, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'First Footer Widget Area', 'elevenforty' ),
 		'id' => 'first-footer-widget-area',
@@ -404,7 +448,7 @@ function elevenforty_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
-	// Area 4, located in the footer. Empty by default.
+	// Area 8, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'Second Footer Widget Area', 'elevenforty' ),
 		'id' => 'second-footer-widget-area',
@@ -415,7 +459,7 @@ function elevenforty_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
-	// Area 5, located in the footer. Empty by default.
+	// Area 9, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'Third Footer Widget Area', 'elevenforty' ),
 		'id' => 'third-footer-widget-area',
@@ -426,7 +470,7 @@ function elevenforty_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
-	// Area 6, located in the footer. Empty by default.
+	// Area 10, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'Fourth Footer Widget Area', 'elevenforty' ),
 		'id' => 'fourth-footer-widget-area',
@@ -450,7 +494,6 @@ add_action( 'widgets_init', 'elevenforty_widgets_init' );
  * to remove the default style. Using Twenty Ten 1.2 in WordPress 3.0 will show the styles,
  * but they won't have any effect on the widget in default Twenty Ten styling.
  *
- * @since Twenty Ten 1.0
  */
 function elevenforty_remove_recent_comments_style() {
 	add_filter( 'show_recent_comments_widget_style', '__return_false' );
@@ -461,7 +504,6 @@ if ( ! function_exists( 'elevenforty_posted_on' ) ) :
 /**
  * Prints HTML with meta information for the current post-date/time and author.
  *
- * @since Twenty Ten 1.0
  */
 function elevenforty_posted_on() {
 	printf( __( '<span class="%1$s">Posted on</span> %2$s <span class="meta-sep">by</span> %3$s', 'elevenforty' ),
@@ -484,7 +526,6 @@ if ( ! function_exists( 'elevenforty_posted_in' ) ) :
 /**
  * Prints HTML with meta information for the current post (category, tags and permalink).
  *
- * @since Twenty Ten 1.0
  */
 function elevenforty_posted_in() {
 	// Retrieves tag list of current post, separated by commas.

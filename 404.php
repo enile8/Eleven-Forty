@@ -2,14 +2,12 @@
 /**
  * The template for displaying 404 pages (Not Found).
  *
- * @package WordPress
- * @subpackage Twenty_Ten
- * @since Twenty Ten 1.0
+ * @package elevenforty
  */
 
 get_header(); ?>
 
-	<div id="container"  class="eightcol">
+	<div id="container"  class="<?php echo get_option('of_main_content_class'); ?>">
 		<div id="content" role="main">
 
 			<div id="post-0" class="post error404 not-found">

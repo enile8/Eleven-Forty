@@ -5,14 +5,12 @@
  * Contains the closing of the id=main div and all content
  * after.  Calls sidebar-footer.php for bottom widgets.
  *
- * @package WordPress
- * @subpackage Twenty_Ten
- * @since Twenty Ten 1.0
+ * @package elevenforty
  */
 ?>
 	</div><!-- #main -->
 
-	<div id="footer" class="row" role="contentinfo">
+	<footer class="row" role="contentinfo">
 		<div id="colophon">
 
 <?php
@@ -23,18 +21,29 @@
 ?>
 
 			<div id="site-info" class="sixcol">
-				<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-					<?php bloginfo( 'name' ); ?>
-				</a>
+            <?php /* Replace default text if option is set */
+			if( get_option('of_footer_left') == 'true'){
+				echo get_option('of_footer_left_text');
+			} else { 
+			?>
+				<a href="<?php echo home_url( '/' ) ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+            <?php } ?>
 			</div><!-- #site-info -->
-
-			<div id="site-generator" class="sixcol last">
-				<?php do_action( 'elevenforty_credits' ); ?>
-				<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'elevenforty' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'elevenforty' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s.', 'elevenforty' ), 'WordPress' ); ?></a>
-			</div><!-- #site-generator -->
+				
+                <?php if( get_option('of_footer_right') == 'true'){ ?>
+                	<div id="site-generator" class="sixcol last">
+					<?php echo get_option('of_footer_right_text'); ?>
+					<br/><a href="http://enile8.github.com/elevenforty" title="1140 CSS Framework Theme for WordPress" rel="generator">Eleven Forty WordPress Theme</a>
+                    </div> <!-- #site-generator -->
+				<?php } else { ?>
+                <div id="site-generator" class="sixcol last">
+                <?php do_action( 'elevenforty_credits' ); ?>
+				<a href="http://enile8.github.com/elevenforty" title="1140 CSS Framework Theme for WordPress" rel="generator">Eleven Forty WordPress Theme</a>
+                </div><!-- #site-generator -->
+                <?php } ?>
 
 		</div><!-- #colophon -->
-	</div><!-- #footer -->
+	</footer><!-- #footer -->
 
 </div><!-- #wrapper -->
 
