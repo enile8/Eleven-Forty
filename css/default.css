@@ -63,9 +63,6 @@ DESCRIPTION: Two-column fixed layout with one sidebar right of content
 #secondary {
 	overflow: hidden;
 }
-#secondary {
-	clear: right;
-}
 #footer {
 	clear: both;
 }

@@ -53,8 +53,11 @@ require_once (OF_FILEPATH . '/admin/admin-interface.php');		// Admin Interfaces 
 
 /* These files build out the theme specific options and associated functions. */
 
-require_once (OF_FILEPATH . '/admin/theme-options.php'); 		// Options panel settings and custom settings
+require_once (OF_FILEPATH . '/admin/theme-options.php'); 	// Options panel settings and custom settings
 require_once (OF_FILEPATH . '/admin/theme-functions.php'); 	// Theme actions based on options settings
+
+/* Load the theme shortcodes */
+require_once(OF_FILEPATH . '/library/extensions/shortcodes.php');
 
 /**
  * Set the content width based on the theme's design and stylesheet.

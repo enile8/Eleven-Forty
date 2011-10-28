@@ -23,17 +23,17 @@
 			<div id="site-info" class="sixcol">
             <?php /* Replace default text if option is set */
 			if( get_option('of_footer_left') == 'true'){
-				echo get_option('of_footer_left_text');
+				echo do_shortcode(get_option('of_footer_left_text'));
 			} else { 
 			?>
 				<a href="<?php echo home_url( '/' ) ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
             <?php } ?>
 			</div><!-- #site-info -->
-<<<<<<< .merge_file_7iriST
 				
                 <?php if( get_option('of_footer_right') == 'true'){ ?>
                 	<div id="site-generator" class="sixcol last">
-					<?php echo get_option('of_footer_right_text'); ?>
+					<?php echo  do_shortcode(get_option('of_footer_right_text')); ?>
+					
 					<br/><a href="http://enile8.github.com/elevenforty" title="1140 CSS Framework Theme for WordPress" rel="generator">Eleven Forty WordPress Theme</a>
                     </div> <!-- #site-generator -->
 				<?php } else { ?>
@@ -42,12 +42,6 @@
 				<a href="http://enile8.github.com/elevenforty" title="1140 CSS Framework Theme for WordPress" rel="generator">Eleven Forty WordPress Theme</a>
                 </div><!-- #site-generator -->
                 <?php } ?>
-=======
-
-			<div id="site-generator" class="sixcol last">
-				<a href="http://enile8.github.com/elevenforty" title="1140 CSS Framework Theme for WordPress" rel="generator">Eleven Forty WordPress Theme</a>
-			</div><!-- #site-generator -->
->>>>>>> .merge_file_PA7NbT
 
 		</div><!-- #colophon -->
 	</footer><!-- #footer -->

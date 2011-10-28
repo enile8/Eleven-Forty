@@ -1,6 +1,14 @@
 Thanks for choosing Eleven Forty
 
 Changelog:
+v0.3
+-added support for yoast breadcrumbs
+-added custom short codes
+-CSS changes
+-Resized images
+-Sidebar fixes (CSS and PHP code)
+-Minor code changes to multiple files
+
 v0.2
 -Update layout HTML to HTML5
 -Added four (4) more widget areas
@@ -14,3 +22,4 @@ Theme Now Supports
 --Custom footer text
 --Set Custom CSS classes
 --Choose right or left sidebar
+
